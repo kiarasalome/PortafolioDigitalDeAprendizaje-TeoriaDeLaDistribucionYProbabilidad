@@ -1,5 +1,7 @@
 <div align="center">  
+ 
 # Portafolio Digital De Aprendizaje
+ 
  <img width="320" height="132" alt="image" src="https://github.com/user-attachments/assets/e533f931-15cc-4298-94ed-267c0181a5dd" /> <br>
 
 ### ***Universidad Nacional de Loja***
