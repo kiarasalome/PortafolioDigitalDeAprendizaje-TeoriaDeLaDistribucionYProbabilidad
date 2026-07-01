@@ -18,5 +18,5 @@
 </div>
 
 ### 📚 Contenido
-- [UNIDAD 1](Unidad%201.md)💼
-- [UNIDAD 2](Unidad%202.md) 🧠
+- [UNIDAD 1](Unidad%201)💼
+- [UNIDAD 2](Unidad%202) 🧠
