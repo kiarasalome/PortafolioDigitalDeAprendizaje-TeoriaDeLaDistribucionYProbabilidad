@@ -1,5 +1,4 @@
-<img width="1918" height="1066" alt="image" src="https://github.com/user-attachments/assets/0ca15474-7b5b-4b48-9c52-aabe91c248aa" /><div align="center"> 
-  
+<div align="center">  
 # Portafolio Digital De Aprendizaje
  <img width="320" height="132" alt="image" src="https://github.com/user-attachments/assets/e533f931-15cc-4298-94ed-267c0181a5dd" /> <br>
 
