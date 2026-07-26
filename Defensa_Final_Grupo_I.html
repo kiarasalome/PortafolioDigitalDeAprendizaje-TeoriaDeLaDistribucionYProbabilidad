@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Kiara Condoy; Javier Guarnizo; Hector Guerrero; Ricardo Ochoa; Emily Salas" />
+  <meta name="dcterms.date" content="2026-07-26" />
+  <title>Análisis Estadístico y Modelado Predictivo de Variables Climáticas en Loja (2001–2024)</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Análisis Estadístico y Modelado Predictivo de
+Variables Climáticas en Loja (2001–2024)</h1>
+<p class="author">Kiara Condoy; Javier Guarnizo; Hector Guerrero;
+Ricardo Ochoa; Emily Salas</p>
+<p class="date">2026-07-26</p>
+</header>
+<div class="center">
+<p><span><strong>CARRERA DE COMPUTACIÓN</strong></span><br />
+</p>
+<hr />
+<p><br />
+<span><strong>Proyecto Integrador</strong></span><br />
+<span><strong>Unidad 3</strong></span><br />
+<span><strong>Tema:</strong> Análisis estadístico y modelado predictivo
+de variables climáticas y ambientales en la provincia de Loja
+(2001–2024)</span></p>
+<hr />
+<div class="minipage">
+<div class="flushleft">
+<p><strong>Integrantes:</strong><br />
+Kiara Condoy<br />
+Javier Guarnizo<br />
+Hector Guerrero<br />
+Ricardo Ochoa<br />
+Emily Salas</p>
+</div>
+</div>
+<div class="minipage">
+<div class="flushright">
+<p><strong>Docente / Tutor:</strong><br />
+Ing. Cristian Narvaez<br />
+<strong>Asignatura:</strong><br />
+Teoría de la Distribución y<br />
+Probabilidad</p>
+</div>
+</div>
+<p><span><strong>Ciclo:</strong> Tercer Ciclo</span><br />
+<span><strong>Periodo Académico:</strong> Abril – Agosto
+2026</span><br />
+<span>Loja – Ecuador</span><br />
+<span>2026-07-26</span></p>
+</div>
+<h1 id="introducción">Introducción</h1>
+<p>Cuando queremos entender un problema ambiental o tecnológico en
+nuestra provincia, no podemos fijarnos en una sola causa. Por ejemplo,
+para entender por qué se pierden árboles o por qué falla un sistema en
+Loja, no basta con mirar solo el clima o solo la temperatura; hay muchos
+factores que cambian al mismo tiempo y se influyen entre sí. Estudios
+previos en el sur del Ecuador demuestran que la fragmentación y pérdida
+de masa forestal responde a interacciones complejas entre factores
+climáticos y presiones antropogénicas <span class="citation"
+data-cites="tapia2015deforestation"></span>.</p>
+<p>En este trabajo analizamos datos de la provincia de Loja recopilados
+entre los años 2001 y 2024. El objetivo es usar herramientas matemáticas
+para conectar todas estas causas a la vez, predecir con qué frecuencia
+ocurren estos problemas y entender qué tan confiables son nuestras
+predicciones para ayudar a tomar mejores decisiones en la región.</p>
+<h1 id="preparación-de-los-datos">Preparación de los Datos</h1>
+<p>Usamos la información recolectada en el Proyecto Integrador sobre la
+provincia de Loja (2001–2024), proveniente de repositorios satelitales
+globales de cobertura arbórea <span class="citation"
+data-cites="gfw2024loja"></span>, cuya metodología se sustenta en la
+detección remota multitemporal desarrollada por Hansen et al. <span
+class="citation" data-cites="hansen2013high"></span>. Este conjunto de
+datos incluye registros del clima, la temperatura y la pérdida de
+vegetación con el paso de los años. Antes de procesar los datos,
+realizamos las siguientes etapas de depuración:</p>
+<ul>
+<li><p><strong>Completar datos faltantes:</strong> Si en algún año no se
+registró un dato, usamos un cálculo intermedio para llenar ese vacío sin
+inventar información.</p></li>
+<li><p><strong>Eliminar datos raros o equivocados:</strong> Borramos
+valores que claramente eran errores de medición (como temperaturas
+imposibles) para no confundir al sistema.</p></li>
+<li><p><strong>Normalización:</strong> Ajustamos los números para que
+las variables con cifras muy grandes no opaquen a las que tienen cifras
+pequeñas.</p></li>
+</ul>
+<h1
+id="análisis-predictivo-multivariado-regresión-lineal-y-diagnóstico-vif">Análisis
+Predictivo Multivariado: Regresión Lineal y Diagnóstico VIF</h1>
+<p>Para evaluar cuantitativamente el impacto continuo de los predictores
+climáticos sobre la masa arbórea perdida
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mo>=</mo><mtext mathvariant="normal">Pérdida_Ha</mtext></mrow><annotation encoding="application/x-tex">Y = \text{Pérdida\_Ha}</annotation></semantics></math>),
+definimos el modelo de Regresión Lineal Múltiple mediante el método de
+Mínimos Cuadrados Ordinarios (OLS):</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>y</mi><mo accent="true">̂</mo></mover><mo>=</mo><msub><mi>β</mi><mn>0</mn></msub><mo>+</mo><msub><mi>β</mi><mn>1</mn></msub><msub><mi>X</mi><mtext mathvariant="normal">Temp</mtext></msub><mo>+</mo><msub><mi>β</mi><mn>2</mn></msub><msub><mi>X</mi><mtext mathvariant="normal">Precip</mtext></msub><mo>+</mo><msub><mi>β</mi><mn>3</mn></msub><msub><mi>X</mi><mtext mathvariant="normal">Hum</mtext></msub><mo>+</mo><mi>ϵ</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+    \hat{y} = \beta_0 + \beta_1 X_{\text{Temp}} + \beta_2 X_{\text{Precip}} + \beta_3 X_{\text{Hum}} + \epsilon
+\end{equation}</annotation></semantics></math></p>
+<p>Donde la estimación de coeficientes busca minimizar la suma de
+residuos al cuadrado
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∑</mo><msubsup><mi>ϵ</mi><mi>i</mi><mn>2</mn></msubsup></mrow><annotation encoding="application/x-tex">\sum \epsilon_i^2</annotation></semantics></math>).</p>
+<h2 id="diagnóstico-de-multicolinealidad-estructural-vif">Diagnóstico de
+Multicolinealidad Estructural (VIF)</h2>
+<p>En variables climáticas observacionales, es común que la humedad y la
+precipitación muestren una alta dependencia mutua. Esta
+multicolinealidad genera inestabilidad en la inversión de la matriz
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msup><mi>X</mi><mi>T</mi></msup><mi>X</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">(X^T X)^{-1}</annotation></semantics></math>,
+lo que dispara la varianza de los coeficientes estimados
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mover><mi>β</mi><mo accent="true">̂</mo></mover><mi>j</mi></msub><annotation encoding="application/x-tex">\hat{\beta}_j</annotation></semantics></math>).
+Para detectarla y mitigarla, calculamos el Factor de Inflación de la
+Varianza (VIF) para cada regresor <span class="citation"
+data-cites="kutner2005applied"></span>:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext mathvariant="normal">VIF</mtext><mi>j</mi></msub><mo>=</mo><mfrac><mn>1</mn><mrow><mn>1</mn><mo>−</mo><msubsup><mi>R</mi><mi>j</mi><mn>2</mn></msubsup></mrow></mfrac></mrow><annotation encoding="application/x-tex">\begin{equation}
+    \text{VIF}_j = \frac{1}{1 - R_j^2}
+\end{equation}</annotation></semantics></math></p>
+<p>Donde
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>R</mi><mi>j</mi><mn>2</mn></msubsup><annotation encoding="application/x-tex">R_j^2</annotation></semantics></math>
+es el coeficiente de determinación obtenido al regredir la variable
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>j</mi></msub><annotation encoding="application/x-tex">X_j</annotation></semantics></math>
+sobre todas las demás variables independientes del modelo. Un valor de
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">VIF</mtext><mo>&gt;</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">\text{VIF} &gt; 5</annotation></semantics></math>
+indica problemas de colinealidad moderada-alta que distorsionan el
+supuesto <em>ceteris paribus</em> <span class="citation"
+data-cites="kutner2005applied"></span>.</p>
+<div class="sourceCode" id="cb1" data-language="Python"
+data-caption="Código para ajuste de Regresión Múltiple OLS y evaluación de VIF sobre el dataset de Loja."><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.outliers_influence <span class="im">import</span> variance_inflation_factor</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>df_loja <span class="op">=</span> pd.read_csv(<span class="st">&quot;loja_clima_cobertura_2001_2024.csv&quot;</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>X_pred <span class="op">=</span> df_loja[[<span class="st">&#39;Temperatura_Max&#39;</span>, <span class="st">&#39;Precipitacion_mm&#39;</span>, <span class="st">&#39;Humedad_Rel&#39;</span>]]</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>X_ols <span class="op">=</span> sm.add_constant(X_pred)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>Y_ols <span class="op">=</span> df_loja[<span class="st">&#39;Perdida_Ha&#39;</span>]</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>modelo_ols <span class="op">=</span> sm.OLS(Y_ols, X_ols).fit()</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(modelo_ols.summary())</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>vif_data <span class="op">=</span> pd.DataFrame()</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>vif_data[<span class="st">&quot;Variable&quot;</span>] <span class="op">=</span> X_ols.columns</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>vif_data[<span class="st">&quot;VIF&quot;</span>] <span class="op">=</span> [variance_inflation_factor(X_ols.values, i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(X_ols.shape[<span class="dv">1</span>])]</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(vif_data)</span></code></pre></div>
+<h1
+id="clasificación-probabilística-regresión-logística-y-decisión-de-políticas">Clasificación
+Probabilística: Regresión Logística y Decisión de Políticas</h1>
+<p>Cuando el objetivo de ingeniería ambiental cambia de predecir la
+cantidad exacta de vegetación perdida a clasificar la ocurrencia de un
+<strong>Evento Ambiental Crítico</strong>
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>=</mo><mtext mathvariant="normal">Sí</mtext></mrow><annotation encoding="application/x-tex">1 = \text{Sí}</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>=</mo><mtext mathvariant="normal">No</mtext></mrow><annotation encoding="application/x-tex">0 = \text{No}</annotation></semantics></math>),
+el método OLS falla al predecir probabilidades fuera del rango
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[0, 1]</annotation></semantics></math>.
+Por ende, se implementa la <strong>Regresión Logística</strong> <span
+class="citation" data-cites="hosmer2013applied"></span>.</p>
+<h2 id="fundamento-matemático-y-transformación-logit">Fundamento
+Matemático y Transformación Logit</h2>
+<p>El modelo logístico proyecta la combinación lineal de los regresores
+a una escala acotada mediante la función sigmoide <span class="citation"
+data-cites="hosmer2013applied"></span>:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>Y</mi><mo>=</mo><mn>1</mn><mo stretchy="false" form="prefix">|</mo><mi>X</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mrow><mn>1</mn><mo>+</mo><msup><mi>e</mi><mrow><mi>−</mi><mi>z</mi></mrow></msup></mrow></mfrac><mo>=</mo><mfrac><mn>1</mn><mrow><mn>1</mn><mo>+</mo><msup><mi>e</mi><mrow><mi>−</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>β</mi><mn>0</mn></msub><mo>+</mo><msub><mi>β</mi><mn>1</mn></msub><msub><mi>X</mi><mn>1</mn></msub><mo>+</mo><mi>…</mi><mo>+</mo><msub><mi>β</mi><mi>k</mi></msub><msub><mi>X</mi><mi>k</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">\begin{equation}
+    P(Y=1|X) = \frac{1}{1 + e^{-z}} = \frac{1}{1 + e^{-(\beta_0 + \beta_1 X_1 + \dots + \beta_k X_k)}}
+\end{equation}</annotation></semantics></math></p>
+<p>La transformación equivalente de las probabilidades a la escala
+lineal de <em>Log-Odds</em> (función <em>logit</em>) permite interpretar
+los parámetros de forma aditiva:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">logit</mtext><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">ln</mi><mo>&#8289;</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mi>p</mi><mrow><mn>1</mn><mo>−</mo><mi>p</mi></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>β</mi><mn>0</mn></msub><mo>+</mo><msub><mi>β</mi><mn>1</mn></msub><msub><mi>X</mi><mn>1</mn></msub><mo>+</mo><mi>…</mi><mo>+</mo><msub><mi>β</mi><mi>k</mi></msub><msub><mi>X</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">\begin{equation}
+    \text{logit}(p) = \ln\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 X_1 + \dots + \beta_k X_k
+\end{equation}</annotation></semantics></math></p>
+<h2 id="estimación-por-máxima-verosimilitud-mle-y-pseudo-r2">Estimación
+por Máxima Verosimilitud (MLE) y Pseudo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math></h2>
+<p>La estimación de parámetros no se realiza por mínimos cuadrados, sino
+mediante la maximización de la función de verosimilitud
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>)
+<span class="citation" data-cites="hosmer2013applied"></span>. La bondad
+de ajuste se evalúa a través del Pseudo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math>
+de McFadden <span class="citation"
+data-cites="mcfadden1974conditional"></span>:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>R</mi><mtext mathvariant="normal">McFadden</mtext><mn>2</mn></msubsup><mo>=</mo><mn>1</mn><mo>−</mo><mfrac><mrow><mrow><mi mathvariant="normal">ln</mi><mo>&#8289;</mo></mrow><msub><mi>L</mi><mtext mathvariant="normal">modelo</mtext></msub></mrow><mrow><mrow><mi mathvariant="normal">ln</mi><mo>&#8289;</mo></mrow><msub><mi>L</mi><mtext mathvariant="normal">nulo</mtext></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">\begin{equation}
+    R^2_{\text{McFadden}} = 1 - \frac{\ln L_{\text{modelo}}}{\ln L_{\text{nulo}}}
+\end{equation}</annotation></semantics></math></p>
+<div class="sourceCode" id="cb2" data-language="Python"
+data-caption="Binarización de variables climáticas, estimación por MLE y evaluación del modelo logístico."><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>umbral_media <span class="op">=</span> df_loja[<span class="st">&#39;Perdida_Ha&#39;</span>].mean()</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df_loja[<span class="st">&#39;Evento_Critico&#39;</span>] <span class="op">=</span> (df_loja[<span class="st">&#39;Perdida_Ha&#39;</span>] <span class="op">&gt;</span> umbral_media).astype(<span class="bu">int</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>Y_logit <span class="op">=</span> df_loja[<span class="st">&#39;Evento_Critico&#39;</span>]</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>X_logit <span class="op">=</span> sm.add_constant(df_loja[[<span class="st">&#39;Temperatura_Max&#39;</span>, <span class="st">&#39;Precipitacion_mm&#39;</span>, <span class="st">&#39;Humedad_Rel&#39;</span>]])</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>modelo_logit <span class="op">=</span> sm.Logit(Y_logit, X_logit).fit()</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(modelo_logit.summary())</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Pseudo R2: </span><span class="sc">{</span>modelo_logit<span class="sc">.</span>prsquared<span class="sc">:.4f}</span><span class="ss">&quot;</span>)</span></code></pre></div>
+<h2
+id="evaluación-por-matriz-de-confusión-y-análisis-del-umbral-cutoff">Evaluación
+por Matriz de Confusión y Análisis del Umbral
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mi>u</mi><mi>t</mi><mi>o</mi><mi>f</mi><mi>f</mi></mrow><annotation encoding="application/x-tex">Cutoff</annotation></semantics></math>)</h2>
+<p>La salida del modelo logístico es una probabilidad continua
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>Y</mi><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">P(Y=1) \in [0,1]</annotation></semantics></math>.
+Para convertir este valor en una decisión binaria, tradicionalmente se
+asume un umbral por defecto de
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>0.50</mn></mrow><annotation encoding="application/x-tex">k = 0.50</annotation></semantics></math>
+<span class="citation" data-cites="fawcett2006roc"></span>:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>Y</mi><mo accent="true">̂</mo></mover><mo>=</mo><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="left" style="text-align: left"><mn>1</mn></mtd><mtd columnalign="left" style="text-align: left"><mrow><mtext mathvariant="normal">si </mtext><mspace width="0.333em"></mspace></mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>Y</mi><mo>=</mo><mn>1</mn><mo stretchy="false" form="prefix">|</mo><mi>X</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mi>k</mi></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><mn>0</mn></mtd><mtd columnalign="left" style="text-align: left"><mrow><mtext mathvariant="normal">si </mtext><mspace width="0.333em"></mspace></mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>Y</mi><mo>=</mo><mn>1</mn><mo stretchy="false" form="prefix">|</mo><mi>X</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>k</mi></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">\begin{equation}
+    \hat{Y} = \begin{cases} 1 &amp; \text{si } P(Y=1|X) \ge k \\ 0 &amp; \text{si } P(Y=1|X) &lt; k \end{cases}
+\end{equation}</annotation></semantics></math></p>
+<p>Sin embargo, en la gestión del territorio lojano existe una asimetría
+de costos crítica:</p>
+<ul>
+<li><p><strong>Falso Negativo (Error Tipo II):</strong> Predecir
+ausencia de riesgo cuando en realidad ocurre una catástrofe
+forestal.</p></li>
+<li><p><strong>Falso Positivo (Error Tipo I):</strong> Emitir una falsa
+alarma.</p></li>
+</ul>
+<p>Por esta razón, demostramos la alteración del umbral técnico
+reduciéndolo de
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>0.50</mn></mrow><annotation encoding="application/x-tex">k = 0.50</annotation></semantics></math>
+a
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>0.25</mn></mrow><annotation encoding="application/x-tex">k = 0.25</annotation></semantics></math>
+para priorizar la <strong>Sensibilidad (Recall)</strong> sobre la
+Especificidad <span class="citation"
+data-cites="fawcett2006roc"></span>.</p>
+<div class="sourceCode" id="cb3" data-language="Python"
+data-caption="Evaluación comparativa de matrices de confusión variando el umbral de decisión."><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>prob_predicha <span class="op">=</span> modelo_logit.predict(X_logit)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>pred_050 <span class="op">=</span> (prob_predicha <span class="op">&gt;=</span> <span class="fl">0.50</span>).astype(<span class="bu">int</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>cm_050 <span class="op">=</span> confusion_matrix(Y_logit, pred_050)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>pred_025 <span class="op">=</span> (prob_predicha <span class="op">&gt;=</span> <span class="fl">0.25</span>).astype(<span class="bu">int</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>cm_025 <span class="op">=</span> confusion_matrix(Y_logit, pred_025)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Matriz k=0.50:</span><span class="ch">\n</span><span class="st">&quot;</span>, cm_050)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Matriz k=0.25:</span><span class="ch">\n</span><span class="st">&quot;</span>, cm_025)</span></code></pre></div>
+<h1 id="fase-de-clasificación-probabilística">Fase de Clasificación
+Probabilística</h1>
+<p>Esta fase aborda la transición del modelado continuo al de
+<strong>clasificación probabilística</strong>: se implementa una
+Regresión Logística sobre el dataset de <em>Global Forest Watch</em>
+<span class="citation" data-cites="gfw2024loja"></span>, se demuestra el
+comportamiento de la curva sigmoide, se evalúa el modelo con la matriz
+de confusión, y se analiza el impacto de mover el umbral de decisión
+sobre las políticas regionales <span class="citation"
+data-cites="fawcett2006roc"></span>.</p>
+<h2
+id="fundamento-matemático-de-la-regresión-lineal-a-la-curva-sigmoide">Fundamento
+Matemático: De la Regresión Lineal a la Curva Sigmoide</h2>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>Y</mi><mo>=</mo><mn>1</mn><mo stretchy="false" form="prefix">|</mo><mi>X</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>σ</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mrow><mn>1</mn><mo>+</mo><msup><mi>e</mi><mrow><mi>−</mi><mi>z</mi></mrow></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">\begin{equation}
+    P(Y=1|X) = \sigma(z) = \frac{1}{1 + e^{-z}}
+\end{equation}</annotation></semantics></math></p>
+<p>De forma equivalente, la transformación <em>logit</em> vuelve la
+relación lineal e interpretable:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">logit</mtext><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">ln</mi><mo>&#8289;</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mi>p</mi><mrow><mn>1</mn><mo>−</mo><mi>p</mi></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>β</mi><mn>0</mn></msub><mo>+</mo><msub><mi>β</mi><mn>1</mn></msub><msub><mi>X</mi><mn>1</mn></msub><mo>+</mo><mi>…</mi><mo>+</mo><msub><mi>β</mi><mi>k</mi></msub><msub><mi>X</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">\begin{equation}
+    \text{logit}(p) = \ln\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 X_1 + \dots + \beta_k X_k
+\end{equation}</annotation></semantics></math></p>
+<p>Los coeficientes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mover><mi>β</mi><mo accent="true">̂</mo></mover><mi>j</mi></msub><annotation encoding="application/x-tex">\hat{\beta}_j</annotation></semantics></math>
+se estiman por <strong>Máxima Verosimilitud (MLE)</strong> <span
+class="citation" data-cites="hosmer2013applied"></span>.</p>
+<h2
+id="aplicación-al-caso-regional-predicción-de-alta-pérdida-de-cobertura-arbórea">Aplicación
+al Caso Regional: Predicción de Alta Pérdida de Cobertura Arbórea</h2>
+<p>Se construyó la variable binaria <code>High_Tree_Loss</code> basada
+en los registros territoriales de Loja <span class="citation"
+data-cites="gfw2024loja"></span>. Como predictores se usaron
+<code>extent_2000_ha</code> y <code>area_ha</code>:</p>
+<div class="center">
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Variable</strong></th>
+<th style="text-align: center;"><strong>Coef.</strong></th>
+<th style="text-align: center;"><strong>Error Est.</strong></th>
+<th style="text-align: center;"><strong>z</strong></th>
+<th
+style="text-align: center;"><strong>P<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>&gt;</mo><mo stretchy="false" form="prefix">|</mo><mi>z</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">&gt;|z|</annotation></semantics></math></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Constante
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>β</mi><mn>0</mn></msub><annotation encoding="application/x-tex">\beta_0</annotation></semantics></math>)</td>
+<td
+style="text-align: center;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>7.8069</mn></mrow><annotation encoding="application/x-tex">-7.8069</annotation></semantics></math></td>
+<td style="text-align: center;">1.334</td>
+<td
+style="text-align: center;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>5.853</mn></mrow><annotation encoding="application/x-tex">-5.853</annotation></semantics></math></td>
+<td style="text-align: center;">0.000</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>extent_2000_ha</code></td>
+<td
+style="text-align: center;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2.496</mn><mo>×</mo><msup><mn>10</mn><mrow><mi>−</mi><mn>6</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2.496\times10^{-6}</annotation></semantics></math></td>
+<td
+style="text-align: center;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1.02</mn><mo>×</mo><msup><mn>10</mn><mrow><mi>−</mi><mn>6</mn></mrow></msup></mrow><annotation encoding="application/x-tex">1.02\times10^{-6}</annotation></semantics></math></td>
+<td
+style="text-align: center;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2.449</mn><annotation encoding="application/x-tex">2.449</annotation></semantics></math></td>
+<td style="text-align: center;">0.014</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>area_ha</code></td>
+<td
+style="text-align: center;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3.245</mn><mo>×</mo><msup><mn>10</mn><mrow><mi>−</mi><mn>6</mn></mrow></msup></mrow><annotation encoding="application/x-tex">3.245\times10^{-6}</annotation></semantics></math></td>
+<td
+style="text-align: center;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1.15</mn><mo>×</mo><msup><mn>10</mn><mrow><mi>−</mi><mn>6</mn></mrow></msup></mrow><annotation encoding="application/x-tex">1.15\times10^{-6}</annotation></semantics></math></td>
+<td
+style="text-align: center;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2.818</mn><annotation encoding="application/x-tex">2.818</annotation></semantics></math></td>
+<td style="text-align: center;">0.005</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="center">
+<p>Pseudo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math>
+de McFadden
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>0.7298</mn></mrow><annotation encoding="application/x-tex">= 0.7298</annotation></semantics></math>
+| LLR p-valor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>5.95</mn><mo>×</mo><msup><mn>10</mn><mrow><mi>−</mi><mn>36</mn></mrow></msup></mrow><annotation encoding="application/x-tex">= 5.95\times10^{-36}</annotation></semantics></math>
+<span class="citation" data-cites="mcfadden1974conditional"></span></p>
+</div>
+<h2 id="evaluación-del-modelo-y-análisis-de-umbrales">Evaluación del
+Modelo y Análisis de Umbrales</h2>
+<div class="center">
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Métrica</strong></th>
+<th style="text-align: center;"><strong>Umbral
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>0.50</mn></mrow><annotation encoding="application/x-tex">k=0.50</annotation></semantics></math></strong></th>
+<th style="text-align: center;"><strong>Umbral
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>0.20</mn></mrow><annotation encoding="application/x-tex">k=0.20</annotation></semantics></math></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Falsos Positivos</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">12</td>
+</tr>
+<tr>
+<td style="text-align: left;">Falsos Negativos</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr>
+<td style="text-align: left;">Sensibilidad</td>
+<td style="text-align: center;">80.39%</td>
+<td style="text-align: center;">98.04%</td>
+</tr>
+<tr>
+<td style="text-align: left;">Especificidad</td>
+<td style="text-align: center;">94.33%</td>
+<td style="text-align: center;">91.49%</td>
+</tr>
+<tr>
+<td style="text-align: left;">Exactitud</td>
+<td style="text-align: center;">90.63%</td>
+<td style="text-align: center;">93.23%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Dado que en Loja un Falso Negativo forestal es mucho más costoso que
+una falsa alarma, <strong>se recomienda el umbral más bajo
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>0.20</mn></mrow><annotation encoding="application/x-tex">k=0.20</annotation></semantics></math>)</strong>
+como política de decisión regional <span class="citation"
+data-cites="fawcett2006roc"></span>.</p>
+<h1 id="conclusiones-y-recomendaciones">Conclusiones y
+Recomendaciones</h1>
+<h2 id="conclusiones">Conclusiones</h2>
+<ol>
+<li><p>La pérdida de cobertura arbórea en Loja está determinada
+principalmente por la magnitud territorial disponible, no por la
+variabilidad climática interanual: <code>extent_2000_ha</code>
+(cobertura base) y <code>area_ha</code> (área territorial) resultaron
+predictores significativos
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>0.014</mn></mrow><annotation encoding="application/x-tex">p=0.014</annotation></semantics></math>
+y
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>0.005</mn></mrow><annotation encoding="application/x-tex">p=0.005</annotation></semantics></math>)
+de un evento de Alta Pérdida, con signo positivo en ambos casos — solo
+se pierde masa arbórea significativa donde originalmente existía mucha y
+donde hay más superficie disponible.</p></li>
+<li><p>El modelo logístico presenta un ajuste sólido: Pseudo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math>
+de McFadden
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>0.7298</mn></mrow><annotation encoding="application/x-tex">=0.7298</annotation></semantics></math>
+y LLR
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-valor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≈</mo><mn>5.95</mn><mo>×</mo><msup><mn>10</mn><mrow><mi>−</mi><mn>36</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\approx 5.95\times10^{-36}</annotation></semantics></math>,
+lo que indica que las variables estructurales explican de forma robusta
+la ocurrencia de eventos críticos, muy por encima de un modelo
+nulo.</p></li>
+<li><p>El umbral de decisión por defecto
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>0.50</mn></mrow><annotation encoding="application/x-tex">k=0.50</annotation></semantics></math>)
+no es adecuado para este contexto de gestión de riesgo. Aunque produce
+buena exactitud global
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>90.63</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">90.63\%</annotation></semantics></math>),
+deja pasar
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>10</mn><annotation encoding="application/x-tex">10</annotation></semantics></math>
+Falsos Negativos de
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>51</mn><annotation encoding="application/x-tex">51</annotation></semantics></math>
+eventos reales de Alta Pérdida (Sensibilidad
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>80.39</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">=80.39\%</annotation></semantics></math>),
+es decir,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
+de cada
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>5</mn><annotation encoding="application/x-tex">5</annotation></semantics></math>
+catástrofes forestales reales no se detecta a tiempo.</p></li>
+<li><p>Bajar el umbral a
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>0.20</mn></mrow><annotation encoding="application/x-tex">k=0.20</annotation></semantics></math>
+mejora drásticamente la capacidad de detección (Sensibilidad
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>98.04</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">=98.04\%</annotation></semantics></math>,
+solo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
+Falso Negativo) a un costo moderado: los Falsos Positivos suben de
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>8</mn><annotation encoding="application/x-tex">8</annotation></semantics></math>
+a
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>12</mn><annotation encoding="application/x-tex">12</annotation></semantics></math>,
+y la Especificidad baja ligeramente de
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>94.33</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">94.33\%</annotation></semantics></math>
+a
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>91.49</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">91.49\%</annotation></semantics></math>.
+La Exactitud global incluso mejora
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>93.23</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">93.23\%</annotation></semantics></math>),
+por lo que el <em>trade-off</em> es favorable en este caso.</p></li>
+<li><p>La asimetría de costos ambientales justifica priorizar
+Sensibilidad sobre Especificidad. Un Falso Negativo implica pérdida
+irreversible de bioma y costos ecológicos/sociales elevados; un Falso
+Positivo solo implica movilización preventiva de recursos, un costo
+menor y reversible.</p></li>
+<li><p>El diagnóstico VIF sobre las variables climáticas (temperatura,
+precipitación, humedad) es necesario antes de interpretar los
+coeficientes del modelo OLS, dado que humedad y precipitación tienden a
+correlacionarse, lo que puede inflar la varianza de los
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mover><mi>β</mi><mo accent="true">̂</mo></mover><mi>j</mi></msub><annotation encoding="application/x-tex">\hat{\beta}_j</annotation></semantics></math>
+si no se controla.</p></li>
+</ol>
+<h2 id="recomendaciones">Recomendaciones</h2>
+<ol>
+<li><p><strong>Adoptar oficialmente
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>0.20</mn></mrow><annotation encoding="application/x-tex">k=0.20</annotation></semantics></math>
+como umbral de decisión</strong> en el sistema de alerta temprana de
+pérdida forestal para la provincia de Loja, priorizando la detección
+temprana sobre la reducción de falsas alarmas.</p></li>
+<li><p><strong>Diseñar un protocolo de respuesta escalonado</strong>
+para los Falsos Positivos adicionales
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>12</mn><annotation encoding="application/x-tex">12</annotation></semantics></math>
+vs.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>8</mn><annotation encoding="application/x-tex">8</annotation></semantics></math>):
+dado que su costo es solo operativo, se recomienda que la alerta con
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>0.20</mn></mrow><annotation encoding="application/x-tex">k=0.20</annotation></semantics></math>
+active un monitoreo o verificación de campo, no necesariamente una
+intervención de máxima escala, para no saturar recursos.</p></li>
+<li><p><strong>Incorporar <code>extent_2000_ha</code> y
+<code>area_ha</code> como variables prioritarias</strong> en futuros
+sistemas de monitoreo territorial, ya que son las de mayor poder
+predictivo identificado; priorizar el monitoreo de zonas con alta
+cobertura base y gran extensión territorial.</p></li>
+<li><p><strong>Ampliar el modelo con variables climáticas
+adicionales</strong> (temperatura, precipitación, humedad) de forma
+conjunta con las variables estructurales, verificando previamente el
+VIF, para evaluar si mejoran el Pseudo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math>
+ya alto
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.7298</mn><annotation encoding="application/x-tex">0.7298</annotation></semantics></math>)
+o si son redundantes frente a las variables territoriales.</p></li>
+<li><p><strong>Revisar y recalibrar el umbral periódicamente</strong>
+(p. ej. cada nuevo año de datos de <em>Global Forest Watch</em>), ya que
+la relación óptima entre sensibilidad y especificidad puede cambiar con
+nuevas dinámicas de deforestación o cambios en los costos de
+intervención.</p></li>
+<li><p><strong>Comunicar a los tomadores de decisión regionales que la
+elección del umbral es una decisión de política de gestión de riesgo, no
+solo estadística</strong> — debe ser validada con actores del sector
+ambiental y de gestión de riesgos, no fijada unilateralmente por el
+equipo técnico.</p></li>
+</ol>
+<h1 id="repositorios-de-los-integrantes">Repositorios de los
+Integrantes</h1>
+<p>Cada integrante documentó su proceso de aprendizaje individual en el
+siguiente repositorio:</p>
+<ul>
+<li><p><strong>Emily Salas:</strong> <a
+href="https://share.google/BNOZKHXxRAZHtb1ek"
+class="uri">https://share.google/BNOZKHXxRAZHtb1ek</a></p></li>
+<li><p><strong>Ricardo Ochoa:</strong> <a
+href="https://github.com/16-01-2005/Portafolio-de-Probabilidad/blob/main/index.md"
+class="uri">https://github.com/16-01-2005/Portafolio-de-Probabilidad/blob/main/index.md</a></p></li>
+<li><p><strong>Hector Guerrero:</strong> <a
+href="https://github.com/Guerrero1002/Teor-a-de-la-distribuci-n.git"
+class="uri">https://github.com/Guerrero1002/Teor-a-de-la-distribuci-n.git</a></p></li>
+<li><p><strong>Javier Guarnizo:</strong> <a
+href="https://github.com/TheJavier37/Teoria_Distribucion_Probabilidad"
+class="uri">https://github.com/TheJavier37/Teoria_Distribucion_Probabilidad</a></p></li>
+<li><p><strong>Kiara Condoy:</strong> <a
+href="https://github.com/kiarasalome/PortafolioDigitalDeAprendizaje-TeoriaDeLaDistribucionYProbabilidad"
+class="uri">https://github.com/kiarasalome/PortafolioDigitalDeAprendizaje-TeoriaDeLaDistribucionYProbabilidad</a></p></li>
+</ul>
+</body>
+</html>
